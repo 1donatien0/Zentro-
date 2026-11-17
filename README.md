@@ -144,4 +144,4 @@ Contributions, suggestions, and bug reports are welcome once the repository is p
 
 1. Fork the repository and create a feature branch from `main`.
 2. Keep changes focused and test pages locally in a browser before opening a pull request.
-3. Note: A software license has **not yet been selected** for this project. All rights remain reserved by the author until a `LICENSE` file is added.
+3. This project is licensed under the [MIT License](LICENSE).
