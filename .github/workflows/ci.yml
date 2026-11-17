@@ -1,0 +1,154 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Repository & Static Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run static validation suite
+        run: npm run validate
+
+      - name: Check PR diff for whitespace errors
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: git diff --check "origin/${BASE_REF}...HEAD"
+
+  test:
+    name: Automated Functional Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run Node test suite
+        run: npm test
+
+  pr-checks:
+    name: Pull Request Hygiene
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate PR title and description
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          node - <<'EOF'
+          const title = (process.env.PR_TITLE || "").trim();
+          const body = (process.env.PR_BODY || "").trim();
+
+          const titlePattern = /^(feat|fix|docs|test|refactor|style|chore|a11y|perf|ci)(\([a-z0-9._-]+\))?: .{3,}$/;
+          if (!titlePattern.test(title)) {
+            console.error(`Invalid PR title: "${title}"`);
+            console.error("Expected format: <type>: <short description> (e.g. feat: add product sorting)");
+            console.error("Allowed types: feat, fix, docs, test, refactor, style, chore, a11y, perf, ci");
+            process.exit(1);
+          }
+
+          if (body.length < 10) {
+            console.error("PR description is too short or empty. Please summarize your changes and testing.");
+            process.exit(1);
+          }
+
+          if (!/#\d+/.test(body)) {
+            console.log("::notice::Consider referencing a related issue (e.g., Fixes #12) if applicable.");
+          }
+          if (!/test|tested|validate|npm test|manual/i.test(body)) {
+            console.log("::notice::Consider documenting the automated or manual testing you performed.");
+          }
+          console.log(`PR title validated: "${title}"`);
+          EOF
+
+      - name: Inspect PR commit messages and newly added file sizes
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          node - <<'EOF'
+          const { execFileSync } = require("node:child_process");
+          const fs = require("node:fs");
+
+          const baseRef = process.env.BASE_REF;
+          const logOut = execFileSync(
+            "git",
+            ["log", "--format=%H%x1f%s", `origin/${baseRef}..HEAD`],
+            { encoding: "utf8" }
+          ).trim();
+
+          if (!logOut) {
+            console.log("No unique commits found in PR range.");
+            process.exit(0);
+          }
+
+          const commits = logOut.split(/\r?\n/).map((line) => {
+            const [sha, subject] = line.split("\x1f");
+            return { sha: sha.slice(0, 7), subject: (subject || "").trim() };
+          });
+
+          const vagueSubjects = new Set(["wip", "fix", "update", "test", "changes", "temp", "asdf", "."]);
+          const conventional = /^(feat|fix|docs|test|refactor|style|chore|a11y|perf|ci)(\([a-z0-9._-]+\))?: .{3,}$/;
+
+          for (const c of commits) {
+            if (!c.subject) {
+              console.error(`Commit ${c.sha} has an empty commit message.`);
+              process.exit(1);
+            }
+            if (vagueSubjects.has(c.subject.toLowerCase())) {
+              console.log(`::warning::Commit ${c.sha} uses a vague message ("${c.subject}"). Consider rewriting with a descriptive summary.`);
+            } else if (!conventional.test(c.subject) && !c.subject.startsWith("Merge ")) {
+              console.log(`::notice::Commit ${c.sha} ("${c.subject}") does not use a Conventional Commit prefix.`);
+            }
+          }
+
+          const addedOut = execFileSync(
+            "git",
+            ["diff", "--diff-filter=A", "--name-only", `origin/${baseRef}...HEAD`],
+            { encoding: "utf8" }
+          ).trim();
+
+          if (addedOut) {
+            const maxBytes = 2 * 1024 * 1024;
+            for (const file of addedOut.split(/\r?\n/).filter(Boolean)) {
+              if (!fs.existsSync(file)) continue;
+              const size = fs.statSync(file).size;
+              if (size > maxBytes) {
+                console.log(`::warning::Newly added file "${file}" is ${(size / (1024 * 1024)).toFixed(2)} MB. Please optimize large assets where possible.`);
+              }
+            }
+          }
+          EOF
