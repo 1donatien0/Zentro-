@@ -4,16 +4,16 @@
 
 ## Related Issue
 
-<!-- Link the issue this PR addresses, e.g., Fixes #12 or Closes #12 -->
+<!-- Link the issue this PR addresses, e.g., Fixes #2 or Closes #8 -->
 
 ## Type of Change
 
-- [ ] Bug fix
-- [ ] New feature / enhancement
-- [ ] UI/UX or responsive design improvement
-- [ ] Accessibility (a11y) improvement
-- [ ] Documentation update
-- [ ] Refactor / code cleanup
+- [ ] Bug fix (`fix:`)
+- [ ] New feature (`feat:`)
+- [ ] UI/UX or responsive design improvement (`style:` / `feat:`)
+- [ ] Accessibility improvement (`a11y:`)
+- [ ] Documentation update (`docs:`)
+- [ ] Refactor, tests, or maintenance (`refactor:` / `test:` / `chore:`)
 
 ## Implementation Details
 
@@ -25,17 +25,18 @@
 
 ## Testing Performed
 
-<!-- Describe the manual checks you ran (browser, OS, viewport sizes, DevTools console check, user flows tested). -->
+<!-- List automated checks run and manual browser verification performed. -->
 
-- Browser & OS:
+- `npm run validate`:
+- `npm test`:
+- Browser & OS tested manually:
 - Pages / flows tested:
-- Console errors checked:
 
 ## Checklist
 
 - [ ] I have read [CONTRIBUTING.md](https://github.com/Ayaan-20-11/Zentro-/blob/main/CONTRIBUTING.md).
-- [ ] My changes are focused and relevant.
-- [ ] I have tested my changes.
-- [ ] I have checked for unintended changes.
-- [ ] I have updated documentation where necessary.
-- [ ] I have not introduced secrets or credentials.
+- [ ] My PR title follows `<type>: <short description>` (e.g., `fix: show empty cart message`).
+- [ ] My changes are focused and avoid unrelated edits.
+- [ ] I ran `npm run validate` and `npm test` locally and tested affected flows in a browser.
+- [ ] I updated documentation where necessary.
+- [ ] I did not introduce secrets, credentials, or `.env` files.
