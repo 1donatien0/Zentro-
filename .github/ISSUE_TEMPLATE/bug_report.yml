@@ -1,0 +1,73 @@
+name: Bug Report
+description: Report a bug or unexpected behavior in Zentro
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please search [existing issues](https://github.com/Ayaan-20-11/Zentro-/issues) first to avoid duplicates.
+        > **Security note:** If you found a security vulnerability, do **not** open a public issue. Follow [SECURITY.md](https://github.com/Ayaan-20-11/Zentro-/blob/main/SECURITY.md).
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug Summary
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe the issue clearly...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Exact steps to reproduce the behavior, including which HTML page you started on.
+      placeholder: |
+        1. Serve the project locally (e.g., Live Server on port 5501)
+        2. Open `home.html`
+        3. Click on '...'
+        4. Observe the issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened? Include any browser DevTools Console errors if visible.
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and Operating System
+      description: Please share your browser name/version, OS, and viewport (desktop or mobile).
+      placeholder: e.g., Chrome 130 on macOS 15 (mobile viewport 375px)
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Recordings
+      description: If applicable, drag and drop screenshots or screen recordings here to help illustrate the issue.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any other context, affected file paths, or `localStorage` state details.
+    validations:
+      required: false

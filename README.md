@@ -63,10 +63,22 @@ Based on the current implementation:
 
 ```text
 Zentro/
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   ├── documentation.yml
+│   │   └── feature_request.yml
+│   └── PULL_REQUEST_TEMPLATE.md
 ├── .vscode/
 │   └── settings.json      # VS Code Live Server configuration (port 5501)
 ├── .gitignore             # Git ignore rules for OS, editor, env, logs, and unused media
+├── CODE_OF_CONDUCT.md     # Contributor Covenant v2.1 community standards
+├── CONTRIBUTING.md        # Contribution guide and local workflow
+├── LICENSE                # MIT License
 ├── README.md              # Project documentation
+├── SECURITY.md            # Security support status and private vulnerability reporting
+├── SUPPORT.md             # Where to ask questions and report issues
 ├── index.html             # Entry / simulated login page with animated bot
 ├── home.html              # Main storefront, 16 product cards, search, cart sidebar, modal
 ├── checkout.html          # Simulated checkout form
@@ -83,10 +95,10 @@ Zentro/
 
 Because Zentro is currently a static frontend project, no package installation or build step is required.
 
-1. **Clone the repository** (once published):
+1. **Clone the repository:**
    ```bash
-   git clone <your-github-repo-url>
-   cd Zentro
+   git clone https://github.com/Ayaan-20-11/Zentro-.git
+   cd Zentro-
    ```
 2. **Serve the project locally:**
    - **Option A — VS Code Live Server** (recommended; see below)
@@ -100,7 +112,7 @@ Because Zentro is currently a static frontend project, no package installation o
 
 ## Running with VS Code Live Server
 
-1. Open the `Zentro` folder in Visual Studio Code.
+1. Open the cloned repository folder (`Zentro-`) in Visual Studio Code.
 2. Install the **Live Server** extension (`ritwickdey.LiveServer`) if not already installed.
 3. This repository includes [`.vscode/settings.json`](.vscode/settings.json) preconfigured to use port `5501`.
 4. Open `index.html` and click **Go Live** in the VS Code status bar (or right-click `index.html` → **Open with Live Server**).
@@ -140,8 +152,15 @@ Zentro is strictly a frontend prototype at this stage:
 
 ## Contributing
 
-Contributions, suggestions, and bug reports are welcome once the repository is published.
+Contributions, bug reports, accessibility improvements, and documentation updates are welcome!
 
-1. Fork the repository and create a feature branch from `main`.
-2. Keep changes focused and test pages locally in a browser before opening a pull request.
-3. This project is licensed under the [MIT License](LICENSE).
+- **Workflow & local validation:** [Contributing Guide](CONTRIBUTING.md)
+- **Questions, bug reports & feature requests:** [Support Guide](SUPPORT.md)
+- **Community standards:** [Code of Conduct](CODE_OF_CONDUCT.md)
+- **Security reporting:** [Security Policy](SECURITY.md)
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

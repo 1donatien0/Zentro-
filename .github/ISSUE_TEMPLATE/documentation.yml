@@ -1,0 +1,42 @@
+name: Documentation
+description: Report missing, unclear, or inaccurate documentation
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us keep Zentro's documentation accurate, honest, and easy for new contributors to follow.
+
+  - type: input
+    id: area
+    attributes:
+      label: Documentation Area
+      description: Which file or section needs attention?
+      placeholder: e.g., README.md (Local Setup), CONTRIBUTING.md, SUPPORT.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What Is Incorrect or Missing?
+      description: Describe what is unclear, outdated, or missing.
+    validations:
+      required: true
+
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Suggested Improvement
+      description: Share how you think this documentation should be updated.
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Relevant Links or Screenshots
+      description: Add links to relevant files/lines or attach screenshots if helpful.
+    validations:
+      required: false
