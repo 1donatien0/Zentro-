@@ -59,11 +59,14 @@ representative at an online or offline event.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported privately to the repository maintainer (`@Ayaan-20-11`) through GitHub
-([`https://github.com/Ayaan-20-11/Zentro-`](https://github.com/Ayaan-20-11/Zentro-)),
-without posting private details in a public issue.
+reported privately by emailing the repository maintainer at
+[avkapoor2011@gmail.com](mailto:avkapoor2011@gmail.com), without posting private
+details in a public issue. Please include relevant context, links, or
+supporting information so the report can be evaluated fairly.
 
-All complaints will be reviewed and investigated promptly and fairly.
+All complaints will be reviewed and investigated fairly and kept confidential to
+the extent reasonably possible without exposing reporter identities
+unnecessarily.
 
 All community leaders are obligated to respect the privacy and security of the
 reporter of any incident.

@@ -43,4 +43,4 @@ To help maintainers and contributors reproduce and fix issues faster, please inc
 
 ## Contacting the Maintainer
 
-For public questions, bug reports, and feature discussions, please use [GitHub Issues](https://github.com/Ayaan-20-11/Zentro-/issues) so other contributors can benefit from the discussion. For private matters (such as security or Code of Conduct reports), contact the repository owner (`@Ayaan-20-11`) privately through GitHub.
+For public questions, bug reports, and feature discussions, please use [GitHub Issues](https://github.com/Ayaan-20-11/Zentro-/issues) so other contributors can benefit from the discussion. For private matters (such as Code of Conduct or security reports, or other private project communication), email [avkapoor2011@gmail.com](mailto:avkapoor2011@gmail.com) or follow [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) and [`SECURITY.md`](SECURITY.md).

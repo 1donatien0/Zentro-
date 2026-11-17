@@ -31,23 +31,24 @@ Because Zentro is in active early prototyping without versioned releases yet, on
 
 ### How to Report Privately
 
-1. **GitHub Private Vulnerability Reporting (Preferred if enabled):**
-   Check the repository's **Security → Advisories** tab at [`https://github.com/Ayaan-20-11/Zentro-/security/advisories`](https://github.com/Ayaan-20-11/Zentro-/security/advisories) to submit a private vulnerability report directly to the maintainer.
-2. **If Private Vulnerability Reporting is not enabled:**
-   Contact the repository owner (`@Ayaan-20-11`) privately through GitHub before creating any public issue.
+1. **Email (Private Fallback & Direct Contact):**
+   Email the maintainer privately at [avkapoor2011@gmail.com](mailto:avkapoor2011@gmail.com) before creating any public issue.
+2. **GitHub Private Vulnerability Reporting (If Enabled):**
+   If enabled on the repository, you may also check **Security → Advisories** at [`https://github.com/Ayaan-20-11/Zentro-/security/advisories`](https://github.com/Ayaan-20-11/Zentro-/security/advisories) (direct form: [`https://github.com/Ayaan-20-11/Zentro-/security/advisories/new`](https://github.com/Ayaan-20-11/Zentro-/security/advisories/new)) to submit a private vulnerability report. If that option is unavailable, use the email address above.
 
 ### What to Include in Your Report
 
 To help evaluate and reproduce the issue quickly, please include:
 
-- A clear description of the vulnerability and the affected file(s) or flow
-- Step-by-step instructions or a minimal proof of concept to reproduce the issue
+- A clear description of the vulnerability and the affected component, file(s), or flow
+- Step-by-step instructions to reproduce the issue
 - Potential security impact (for example, XSS, data exposure, or client-side bypass)
+- A minimal supporting proof of concept, if safe to provide
 - Browser/environment details, if relevant
 - Any suggested fix or mitigation, if you have one
 
 ### What to Expect
 
-- The repository maintainer will review your report, confirm whether the issue applies to the current codebase, and work on a fix on a private branch or coordinated patch.
-- Because Zentro is a maintainer-run early prototype, no fixed response-time SLA is guaranteed, though reports will be addressed on a best-effort basis.
+- Reports will be reviewed privately by the repository maintainer to determine whether the issue applies to the current codebase and how to address it.
+- Zentro is a maintainer-run early prototype without a formal security response team, so no fixed response-time or fix-timeline SLA is guaranteed.
 - Please allow time for a fix to be prepared and merged before sharing details publicly.
