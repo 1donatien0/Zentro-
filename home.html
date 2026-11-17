@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zentro</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+html{
+
+scroll-behavior:smooth;
+
+}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+}
+
+/* Navbar */
+
+nav{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:20px 60px;
+
+background:#111827;
+
+position:sticky;
+top:0;
+
+z-index:1000;
+
+box-shadow:
+0 5px 25px rgba(0,0,0,.25);
+}
+
+.logo{
+
+font-size:2rem;
+font-weight:700;
+
+color:#00c2ff;
+}
+
+.search-box{
+
+width:40%;
+}
+
+.search-box input{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+outline:none;
+
+border-radius:12px;
+}
+
+.icons{
+
+display:flex;
+gap:20px;
+
+font-size:1.5rem;
+}
+
+/* Hero */
+
+.hero{
+
+height:75vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+
+text-align:center;
+
+background:
+linear-gradient(
+rgba(0,0,0,.45),
+rgba(0,0,0,.45)
+),
+url("hero-bg.jpg");
+
+background-size:cover;
+
+background-position:center;
+}
+
+.hero h1{
+
+font-size:4rem;
+
+margin-bottom:20px;
+
+animation:
+glow 3s infinite alternate;
+
+padding:12px 25px;
+
+background:rgba(0,0,0,.15);
+
+backdrop-filter:blur(8px);
+
+border-radius:20px;
+}
+
+.hero p{
+
+font-size:1.2rem;
+
+opacity:.8;
+}
+
+/* Products */
+
+.section-title{
+
+padding:40px 60px 20px;
+
+font-size:2rem;
+font-weight:600;
+}
+
+.products{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+
+gap:25px;
+
+padding:20px 60px 60px;
+}
+
+.card{
+
+background:#1e293b;
+
+border-radius:20px;
+
+overflow:hidden;
+
+transition:all .4s ease;
+}
+
+.card:hover{
+
+transform:
+translateY(-15px)
+scale(1.03);
+
+box-shadow:
+0 20px 40px
+rgba(0,194,255,.3);
+}
+
+.card img{
+
+width:100%;
+height:220px;
+transition:.5s;
+object-fit:cover;
+}
+.card:hover img{
+
+transform:scale(1.08);
+
+}
+
+.card-content{
+
+padding:20px;
+}
+
+.card h3{
+
+margin-bottom:10px;
+}
+
+.price{
+
+color:#00c2ff;
+
+font-size:1.2rem;
+font-weight:600;
+
+margin-bottom:15px;
+}
+
+.card button{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+border-radius:10px;
+
+background:#00c2ff;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+.card button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+0 0 20px rgba(0,194,255,.5);
+
+}
+
+/* Mobile */
+
+@keyframes glow{
+
+from{
+
+text-shadow:
+0 0 10px #00c2ff;
+
+}
+
+to{
+
+text-shadow:
+0 0 40px #00c2ff,
+0 0 80px #00c2ff;
+
+}
+
+}
+@keyframes heroMove{
+
+0%{
+
+background-position:left;
+
+}
+
+50%{
+
+background-position:right;
+
+}
+
+100%{
+
+background-position:left;
+
+}
+
+}
+.stats{
+
+display:flex;
+
+justify-content:center;
+
+gap:100px;
+
+padding:60px;
+
+background:#111827;
+
+text-align:center;
+
+}
+
+.stats h2{
+
+font-size:3rem;
+
+color:#00c2ff;
+
+}
+
+.stats p{
+
+opacity:.8;
+
+margin-top:10px;
+
+}
+#toast{
+
+position:fixed;
+
+bottom:30px;
+right:30px;
+
+background:#00c2ff;
+
+color:white;
+
+padding:15px 25px;
+
+border-radius:12px;
+
+font-weight:600;
+
+box-shadow:
+0 10px 30px rgba(0,194,255,.4);
+
+opacity:0;
+
+transform:translateY(20px);
+
+transition:.4s;
+
+z-index:9999;
+
+}
+
+#toast.show{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+@media(max-width:768px){
+    
+
+nav{
+
+padding:20px;
+flex-direction:column;
+gap:15px;
+}
+
+.search-box{
+
+width:100%;
+}
+
+.hero h1{
+
+font-size:2.5rem;
+}
+
+.products{
+
+padding:20px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+
+<div class="logo">
+🛒 Zentro
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search products..."
+onkeyup="searchProducts()">
+
+</div>
+<div id="welcome-user"></div>
+<div class="icons">
+
+<span>❤️</span>
+
+<span onclick="openCart()" style="cursor:pointer;">
+🛍️ <span id="cart-count">0</span>
+</span>
+
+<button onclick="clearCart()">
+Reset
+</button>
+
+<span>👤</span>
+
+</div>
+
+</nav>
+
+<section class="hero">
+
+<h1>Shop Smarter With Zentro</h1>
+
+<p>
+Premium Shopping Experience For Everyone
+</p>
+</section>
+
+<section class="stats reveal">
+
+<div>
+
+<h2 class="counter" data-target="10000">0</h2>
+
+<p>Happy Customers</p>
+
+</div>
+
+<div>
+
+<h2 class="counter" data-target="500">0</h2>
+
+<p>Products</p>
+
+</div>
+
+<div>
+
+<h2 class="counter" data-target="24">0</h2>
+
+<p>Support</p>
+
+</div>
+</section>
+
+<h2 class="section-title reveal">
+🔥 Featured Products
+</h2>
+
+<div class="products reveal">
+
+<div class="card product-card"
+onclick="showProduct(this)">
+
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+
+<div class="card-content">
+
+<h3>iPhone 16</h3>
+
+<div class="price">
+₹79,999
+</div>
+  
+<button onclick="event.stopPropagation();addToCart('iPhone 16',79999)">
+Add To Cart
+</button>
+
+</div>
+
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+
+<img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12">
+
+<div class="card-content">
+
+<h3>Smart Watch</h3>
+
+<div class="price">
+₹4,999
+</div>
+
+<button onclick="event.stopPropagation();addToCart('Smart Watch',4999)">
+Add To Cart
+</button>
+
+</div>
+
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+
+<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e">
+
+<div class="card-content">
+
+<h3>Headphones</h3>
+
+<div class="price">
+₹2,999
+</div>
+
+<button onclick="event.stopPropagation();addToCart('Headphones',2999)">
+Add To Cart
+</button>
+</div>
+
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+
+<img src="https://images.unsplash.com/photo-1583394838336-acd977736f90">
+
+<div class="card-content">
+
+<h3>Sneakers</h3>
+
+<div class="price">
+₹5,499
+</div>
+
+<button onclick="event.stopPropagation();addToCart('Sneakers',5499)">
+Add To Cart
+</button>
+
+</div>
+
+</div>
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
+<div class="card-content">
+<h3>Apple Watch</h3>
+<div class="price">₹34,999</div>
+<button onclick="event.stopPropagation();addToCart('Apple Watch',34999)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+<div class="card-content">
+<h3>Nike Shoes</h3>
+<div class="price">₹6,999</div>
+<button onclick="event.stopPropagation();addToCart('Nike Shoes',6999)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1503602642458-232111445657">
+<div class="card-content">
+<h3>Laptop</h3>
+<div class="price">₹59,999</div>
+<button onclick="event.stopPropagation();addToCart('Laptop',59999)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f">
+<div class="card-content">
+<h3>Camera</h3>
+<div class="price">₹45,999</div>
+<button onclick="event.stopPropagation();addToCart('Camera',45999)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad">
+<div class="card-content">
+<h3>Gaming Mouse</h3>
+<div class="price">₹1,999</div>
+<button onclick="event.stopPropagation();addToCart('Gaming Mouse',1999)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1580894908361-967195033215">
+<div class="card-content">
+<h3>Mechanical Keyboard</h3>
+<div class="price">₹3,499</div>
+<button onclick="event.stopPropagation();addToCart('Mechanical Keyboard',3499)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1517336714739-489689fd1ca8">
+<div class="card-content">
+<h3>MacBook Air</h3>
+<div class="price">₹99,999</div>
+<button onclick="event.stopPropagation();addToCart('MacBook Air',99999)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3">
+<div class="card-content">
+<h3>Bluetooth Speaker</h3>
+<div class="price">₹2,499</div>
+<button onclick="event.stopPropagation();addToCart('Bluetooth Speaker',2499)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
+<div class="card-content">
+<h3>Sunglasses</h3>
+<div class="price">₹1,499</div>
+<button onclick="event.stopPropagation();addToCart('Sunglasses',1499)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab">
+<div class="card-content">
+<h3>T-Shirt</h3>
+<div class="price">₹799</div>
+<button onclick="event.stopPropagation();addToCart('T-Shirt',799)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+<div class="card-content">
+<h3>Running Shoes</h3>
+<div class="price">₹5,499</div>
+<button onclick="event.stopPropagation();addToCart('Running Shoes',5499)">Add To Cart</button>
+</div>
+</div>
+
+<div class="card product-card"
+onclick="showProduct(this)">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
+<div class="card-content">
+<h3>Luxury Watch</h3>
+<div class="price">₹12,999</div>
+<button onclick="event.stopPropagation();addToCart('Luxury Watch',12999)">Add To Cart</button>
+</div>
+</div>
+</div>
+<script>
+
+let cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+
+
+let cartCount = 0;
+let totalPrice = 0;
+document.getElementById("cart-count")
+.innerText = cartCount;
+function saveCart(){
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+}
+function loadCart(){
+
+document.getElementById(
+"cart-items"
+).innerHTML = "";
+
+cartCount = 0;
+totalPrice = 0;
+
+cart.forEach(item => {
+
+cartCount += item.quantity;
+
+totalPrice +=
+item.price * item.quantity;
+
+document.getElementById(
+"cart-items"
+).innerHTML += `
+<div>
+
+<p>
+✅ ${item.name}
+</p>
+
+<button onclick="decreaseQuantity('${item.name}')">
+-
+</button>
+
+<span>
+${item.quantity}
+</span>
+
+<button onclick="increaseQuantity('${item.name}')">
++
+</button>
+
+<p>
+₹${item.price}
+</p>
+
+</div>
+`;
+
+});
+
+document.getElementById(
+"cart-count"
+).innerText = cartCount;
+
+document.getElementById(
+"cart-total"
+).innerText =
+"Total: ₹" +
+totalPrice.toLocaleString();
+
+}
+
+
+function addToCart(productName, price){
+    let existingProduct =
+cart.find(
+item => item.name === productName
+);
+if(existingProduct){
+
+existingProduct.quantity++;
+
+saveCart();
+
+loadCart();
+
+return;
+}
+cart.push({
+
+name: productName,
+price: price,
+quantity: 1
+
+});
+
+console.log("PUSHED TO CART");
+console.log(cart);
+
+saveCart();
+
+console.log("SAVED");
+loadCart();
+showToast(
+productName +
+" Added To Cart 🛒"
+);
+
+}
+function showToast(message){
+
+let toast =
+document.getElementById(
+"toast"
+);
+
+toast.innerText =
+message;
+
+toast.classList.add(
+"show"
+);
+
+setTimeout(function(){
+
+toast.classList.remove(
+"show"
+);
+
+},2000);
+
+}
+function clearCart(){
+
+    cartCount = 0;
+    totalPrice = 0;
+
+    cart = [];
+
+localStorage.removeItem("cart");
+
+localStorage.setItem(
+"cartCount",
+0
+);
+
+    document.getElementById("cart-count")
+    .innerText = 0;
+
+    document.getElementById("cart-items")
+    .innerHTML = "<p>No items yet</p>";
+
+    document.getElementById("cart-total")
+    .innerText = "Total: ₹0";
+
+    showToast(
+"Cart Reset 🛍️"
+);
+}
+function increaseQuantity(productName){
+
+let product =
+cart.find(
+item => item.name === productName
+);
+
+product.quantity++;
+
+saveCart();
+loadCart();
+
+}
+function decreaseQuantity(productName){
+
+let product =
+cart.find(
+item => item.name === productName
+);
+
+product.quantity--;
+
+if(product.quantity <= 0){
+
+cart =
+cart.filter(
+item => item.name !== productName
+);
+
+}
+
+saveCart();
+loadCart();
+
+}
+function searchProducts(){
+
+    let input =
+    document.getElementById(
+    "searchInput"
+    ).value.toLowerCase();
+
+    let products =
+    document.querySelectorAll(
+    ".product-card"
+    );
+
+    products.forEach(function(product){
+
+        let name =
+        product.querySelector("h3")
+        .innerText.toLowerCase();
+
+        if(name.includes(input)){
+
+            product.style.display = "block";
+
+        }else{
+
+            product.style.display = "none";
+        }
+
+    });
+
+}
+let selectedProductName = "";
+let selectedProductPrice = 0;
+function showProduct(card){
+
+let title =
+card.querySelector("h3").innerText;
+
+let price =
+card.querySelector(".price").innerText;
+selectedProductName = title;
+
+selectedProductPrice =
+Number(
+price.replace("₹","")
+.replace(/,/g,"")
+);
+
+let image =
+card.querySelector("img").src;
+
+document.getElementById(
+"popup-title"
+).innerText = title;
+
+document.getElementById(
+"popup-price"
+).innerText = price;
+
+document.getElementById(
+"popup-image"
+).src = image;
+
+document.getElementById("popup-cart-btn").onclick =
+function(){
+
+    addToCart(
+        selectedProductName,
+        selectedProductPrice
+    );
+
+    closePopup();
+};
+
+document.getElementById(
+"product-popup"
+).style.display = "flex";
+
+}
+
+function closePopup(){
+
+document.getElementById(
+"product-popup"
+).style.display = "none";
+
+}
+function animateCounters(){
+
+const counters =
+document.querySelectorAll(".counter");
+
+counters.forEach(counter => {
+
+const target =
++counter.getAttribute("data-target");
+
+let count = 0;
+
+const updateCounter = () => {
+
+const increment = target / 100;
+
+if(count < target){
+
+count += increment;
+
+counter.innerText =
+Math.ceil(count);
+
+setTimeout(updateCounter,20);
+
+}else{
+
+if(target === 10000){
+
+counter.innerText = "10K+";
+
+}
+else if(target === 500){
+
+counter.innerText = "500+";
+
+}
+else{
+
+counter.innerText = "24/7";
+
+}
+
+}
+
+};
+
+updateCounter();
+
+});
+
+}
+document.addEventListener("DOMContentLoaded", function(){
+
+loadCart();
+
+const statsSection =
+document.querySelector(".stats");
+
+const observer =
+new IntersectionObserver(function(entries){
+
+if(entries[0].isIntersecting){
+
+animateCounters();
+
+observer.disconnect();
+
+}
+
+});
+
+observer.observe(statsSection);
+
+});
+</script>
+<script src="script.js"></script>
+<div id="cart-sidebar">
+
+<h2>🛒 Your Cart</h2>
+
+<div id="cart-items">
+
+<p>No items yet</p>
+
+</div>
+<div id="cart-total">
+Total: ₹0
+</div>
+<button onclick="window.location.href='checkout.html'">
+Proceed To Checkout 💳
+</button>
+<button onclick="closeCart()">
+Close
+</button>
+
+</div>
+<div id="product-popup">
+
+<div id="popup-content">
+
+<span id="close-popup"
+onclick="closePopup()">✖</span>
+
+<h2 id="popup-title"></h2>
+
+<img id="popup-image">
+
+<h3 id="popup-price"></h3>
+<button id="popup-cart-btn">
+Add To Cart 🛒
+</button>
+</div>
+
+</div>
+<div id="toast">
+✅ Added To Cart
+</div>
+<footer class="reveal">
+
+<h2>Zentro</h2>
+
+<p>
+Built by Ayaan Kapoor 🚀
+</p>
+
+<p>
+India's Next Shopping Experience
+</p>
+
+</footer>
+</body>
+</html>
