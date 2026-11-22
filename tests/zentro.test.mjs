@@ -134,3 +134,42 @@ test("checkout.html and success.html: mock checkout moves cart to lastOrder and 
   );
   assert.match(success.document.getElementById("order-items").innerHTML, /Smart Watch\s*\(2\)/);
 });
+
+
+test("home.html: handles malformed cart data without crashing", () => {
+  const app = loadHtmlApp("home.html", {
+    cart: "{invalid",
+  });
+
+  assert.equal(app.document.getElementById("cart-count").innerText, 0);
+  assert.equal(app.document.getElementById("cart-total").innerText, "Total: ₹0");
+});
+
+
+test("success.html: handles malformed lastOrder data without crashing", () => {
+  assert.doesNotThrow(() => {
+    loadHtmlApp("success.html", {
+      lastOrder: "{invalid",
+    });
+  });
+});
+
+
+
+test("home.html: handles valid JSON that is not an array", () => {
+  const app = loadHtmlApp("home.html", {
+    cart: JSON.stringify({ name: "Demo" }),
+  });
+
+  assert.equal(app.document.getElementById("cart-count").innerText, 0);
+  assert.equal(app.document.getElementById("cart-total").innerText, "Total: ₹0");
+});
+
+
+test("success.html: handles valid JSON that is not an array", () => {
+  const app = loadHtmlApp("success.html", {
+    lastOrder: JSON.stringify({ name: "Demo" }),
+  });
+
+  assert.equal(app.document.getElementById("order-items").innerHTML, "");
+});

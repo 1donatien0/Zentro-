@@ -656,14 +656,10 @@ onclick="showProduct(this)">
 </div>
 </div>
 </div>
+<script src="storage.js"></script>
 <script>
 
-let cart =
-JSON.parse(
-localStorage.getItem("cart")
-) || [];
-
-
+let cart = safeParseStorage("cart");
 
 let cartCount = 0;
 let totalPrice = 0;
