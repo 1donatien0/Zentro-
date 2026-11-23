@@ -191,12 +191,11 @@ customerName +
 " ❤️";
 
 </script>
+<script src="storage.js"></script>
 <script>
 
-let order =
-JSON.parse(
-localStorage.getItem("lastOrder")
-) || [];
+let order = safeParseStorage("lastOrder");
+
 
 let orderItems =
 document.getElementById("order-items");
