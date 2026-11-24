@@ -210,11 +210,90 @@ function validateHtmlAndCss(files) {
   }
 }
 
+// Basic YAML checks in plain Node, so `npm run validate` works without Ruby.
+// They catch the common mistakes (tabs, unclosed quotes/brackets, empty files,
+// missing required keys); full parsing still happens below when Ruby exists.
+function lintYamlText(text, file) {
+  const problems = [];
+  const lines = text.split(/\r?\n/);
+
+  if (!lines.some((line) => line.trim() && !line.trim().startsWith("#"))) {
+    problems.push("file is empty");
+    return problems;
+  }
+
+  const topLevelKeys = new Set();
+  let blockScalarIndent = null; // indentation of the line that opened a | or > block
+
+  lines.forEach((line, i) => {
+    const lineNo = i + 1;
+    const indent = /^ */.exec(line)[0].length;
+
+    // Lines inside a block scalar (`key: |`) are free text, not YAML structure.
+    if (blockScalarIndent !== null) {
+      if (!line.trim() || indent > blockScalarIndent) return;
+      blockScalarIndent = null;
+    }
+
+    if (/^ *\t/.test(line)) {
+      problems.push(`line ${lineNo}: tab character used for indentation`);
+      return;
+    }
+
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#") || /^(---|\.\.\.)(\s|$)/.test(trimmed)) return;
+
+    let rest = trimmed;
+    while (/^-(\s|$)/.test(rest)) rest = rest.slice(1).trimStart();
+
+    const keyMatch = /^("(?:[^"\\]|\\.)*"|'(?:[^']|'')*'|[^\s"'#\[{][^#]*?):(?:\s+|$)/.exec(rest);
+    if (indent === 0 && !trimmed.startsWith("-")) {
+      if (!keyMatch) {
+        problems.push(`line ${lineNo}: top-level line is not a "key: value" entry`);
+        return;
+      }
+      topLevelKeys.add(keyMatch[1].replace(/^["']|["']$/g, ""));
+    }
+
+    const value = keyMatch ? rest.slice(keyMatch[0].length) : rest;
+    if (value.startsWith('"') && !/^"(?:[^"\\]|\\.)*"/.test(value)) {
+      problems.push(`line ${lineNo}: unclosed double-quoted string`);
+    } else if (value.startsWith("'") && !/^'(?:[^']|'')*'/.test(value)) {
+      problems.push(`line ${lineNo}: unclosed single-quoted string`);
+    } else if (value.startsWith("[") || value.startsWith("{")) {
+      const unquoted = value.replace(/"(?:[^"\\]|\\.)*"|'(?:[^']|'')*'/g, "");
+      const opens = (unquoted.match(/[[{]/g) || []).length;
+      const closes = (unquoted.match(/[\]}]/g) || []).length;
+      if (opens !== closes) problems.push(`line ${lineNo}: unbalanced brackets`);
+    } else if (/^[|>][-+0-9]*\s*(#.*)?$/.test(value)) {
+      blockScalarIndent = indent;
+    }
+  });
+
+  const required = file.startsWith(".github/workflows/")
+    ? ["on", "jobs"]
+    : file.startsWith(".github/ISSUE_TEMPLATE/") && !/\/config\.ya?ml$/.test(file)
+      ? ["name", "description", "body"]
+      : [];
+  for (const key of required) {
+    if (!topLevelKeys.has(key)) problems.push(`missing required top-level key "${key}"`);
+  }
+
+  return problems;
+}
+
 function validateYamlFiles(files) {
   const yamlFiles = files.filter(
     (f) => f.startsWith(".github/") && (f.endsWith(".yml") || f.endsWith(".yaml"))
   );
+  let rubyAvailable = true;
   for (const file of yamlFiles) {
+    const text = fs.readFileSync(path.join(ROOT, file), "utf8");
+    for (const problem of lintYamlText(text, file)) {
+      fail(`Invalid YAML in ${file}: ${problem}`);
+    }
+
+    if (!rubyAvailable) continue;
     try {
       execFileSync(
         "ruby",
@@ -222,6 +301,11 @@ function validateYamlFiles(files) {
         { stdio: "pipe", encoding: "utf8" }
       );
     } catch (err) {
+      if (err.code === "ENOENT") {
+        rubyAvailable = false;
+        warn("ruby not found on PATH; .github/ YAML got the basic Node checks only (full YAML parsing skipped).");
+        continue;
+      }
       fail(`Invalid YAML in ${file}: ${err.stderr || err.message}`);
     }
   }
