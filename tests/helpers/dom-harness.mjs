@@ -152,6 +152,9 @@ export function loadHtmlApp(htmlFile, initialStorage = {}) {
     disconnect() {}
   }
 
+  const timers = [];
+  let nextTimerId = 1;
+
   const context = vm.createContext({
     window: windowObj,
     document,
@@ -163,7 +166,15 @@ export function loadHtmlApp(htmlFile, initialStorage = {}) {
       }
     },
     IntersectionObserver: MockIntersectionObserver,
-    setTimeout: () => 0,
+    setTimeout(fn, ms) {
+      const id = nextTimerId++;
+      timers.push({ id, fn, ms });
+      return id;
+    },
+    clearTimeout(id) {
+      const index = timers.findIndex((timer) => timer.id === id);
+      if (index !== -1) timers.splice(index, 1);
+    },
     console: { log() {}, error() {}, warn() {} },
   });
 
@@ -189,5 +200,6 @@ export function loadHtmlApp(htmlFile, initialStorage = {}) {
     localStorage,
     alerts,
     productCards,
+    timers,
   };
 }

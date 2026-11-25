@@ -197,3 +197,22 @@ test("home.html: proceedToCheckout is blocked again after the last item is remov
   context.proceedToCheckout();
   assert.equal(window.location.href, "home.html");
 });
+
+test("home.html: a second toast cancels the first timer and keeps its full 2 seconds", () => {
+  const app = loadHtmlApp("home.html");
+  const { document, context, timers } = app;
+  const toast = document.getElementById("toast");
+  const before = timers.length;
+
+  context.showToast("Added A");
+  context.showToast("Added B");
+
+  assert.equal(timers.length, before + 1);
+  assert.equal(toast.innerText, "Added B");
+  assert.equal(toast.classList.contains("show"), true);
+
+  const last = timers.at(-1);
+  assert.equal(last.ms, 2000);
+  last.fn();
+  assert.equal(toast.classList.contains("show"), false);
+});
