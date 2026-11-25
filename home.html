@@ -768,6 +768,8 @@ productName +
 );
 
 }
+let toastTimeout;
+
 function showToast(message){
 
 let toast =
@@ -782,7 +784,9 @@ toast.classList.add(
 "show"
 );
 
-setTimeout(function(){
+clearTimeout(toastTimeout);
+
+toastTimeout = setTimeout(function(){
 
 toast.classList.remove(
 "show"
