@@ -791,6 +791,26 @@ toast.classList.remove(
 },2000);
 
 }
+function proceedToCheckout(){
+
+    let hasItems =
+    cart.some(
+    item => item.quantity > 0
+    );
+
+    if(!hasItems){
+
+        showToast(
+        "Your cart is empty! Add an item first."
+        );
+
+        return;
+    }
+
+    window.location.href =
+    "checkout.html";
+
+}
 function clearCart(){
 
     cartCount = 0;
@@ -1028,7 +1048,7 @@ observer.observe(statsSection);
 <div id="cart-total">
 Total: ₹0
 </div>
-<button onclick="window.location.href='checkout.html'">
+<button onclick="proceedToCheckout()">
 Proceed To Checkout 💳
 </button>
 <button onclick="closeCart()">

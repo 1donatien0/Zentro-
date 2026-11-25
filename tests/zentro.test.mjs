@@ -173,3 +173,27 @@ test("success.html: handles valid JSON that is not an array", () => {
 
   assert.equal(app.document.getElementById("order-items").innerHTML, "");
 });
+
+test("home.html: proceedToCheckout blocks an empty cart and navigates once an item is added", () => {
+  const app = loadHtmlApp("home.html");
+  const { document, window, context } = app;
+
+  context.proceedToCheckout();
+  assert.equal(window.location.href, "home.html");
+  assert.equal(document.getElementById("toast").innerText, "Your cart is empty! Add an item first.");
+  assert.equal(document.getElementById("toast").classList.contains("show"), true);
+
+  context.addToCart("iPhone 16", 79999);
+  context.proceedToCheckout();
+  assert.equal(window.location.href, "checkout.html");
+});
+
+test("home.html: proceedToCheckout is blocked again after the last item is removed", () => {
+  const app = loadHtmlApp("home.html");
+  const { window, context } = app;
+
+  context.addToCart("iPhone 16", 79999);
+  context.decreaseQuantity("iPhone 16");
+  context.proceedToCheckout();
+  assert.equal(window.location.href, "home.html");
+});
