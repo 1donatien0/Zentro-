@@ -408,6 +408,24 @@ position:relative;
 z-index:1;
 }
 
+.icons button.cart-button{
+background:none;
+border:none;
+padding:0;
+color:inherit;
+font:inherit;
+cursor:pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+.search-box input:focus-visible,
+.checkout-card input:focus-visible{
+outline:2px solid #00c2ff;
+outline-offset:2px;
+}
+
 </style>
 </head>
 <body>
@@ -432,9 +450,9 @@ onkeyup="searchProducts()">
 
 <span>❤️</span>
 
-<span onclick="openCart()" style="cursor:pointer;">
+<button type="button" class="cart-button" onclick="openCart()" aria-label="Open cart">
 🛍️ <span id="cart-count">0</span>
-</span>
+</button>
 
 <button onclick="clearCart()">
 Reset
@@ -1071,8 +1089,8 @@ Close
 
 <div id="popup-content">
 
-<span id="close-popup"
-onclick="closePopup()">✖</span>
+<button type="button" id="close-popup"
+onclick="closePopup()" aria-label="Close">✖</button>
 
 <h2 id="popup-title"></h2>
 
