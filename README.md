@@ -1,6 +1,12 @@
 <div align="center">
 
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,55:1e293b,100:00c2ff&height=200&section=header&text=Zentro&fontSize=64&fontColor=ffffff&fontAlignY=38&desc=India%27s%20Next%20Shopping%20Experience&descAlignY=62&descColor=00c2ff&animation=twinkling" width="100%" alt="Zentro animated header banner" />
+
 # 🛒 Zentro
+
+<a href="https://github.com/Ayaan-20-11/Zentro-">
+  <img src="https://readme-typing-svg.demolab.com?font=Poppins&weight=600&size=22&duration=3000&pause=1000&color=00C2FF&center=true&vCenter=true&width=650&lines=India%27s+Next+Shopping+Experience;Dark+Glassmorphic+E-Commerce+Prototype;HTML5+%E2%80%A2+CSS3+%E2%80%A2+Vanilla+JavaScript;Open-Source+%26+Beginner-Friendly" alt="Zentro animated typing tagline" />
+</a>
 
 **A dark, glassmorphic static e-commerce storefront prototype — built with HTML5, CSS3, and Vanilla JavaScript.**
 
@@ -8,7 +14,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-00c2ff.svg)](LICENSE)
 [![Status: Frontend Prototype](https://img.shields.io/badge/Status-Frontend%20Prototype-0f172a?labelColor=1e293b&color=00c2ff)](https://github.com/Ayaan-20-11/Zentro-)
+[![GitHub Stars](https://img.shields.io/github/stars/Ayaan-20-11/Zentro-?style=flat&color=00c2ff)](https://github.com/Ayaan-20-11/Zentro-/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/Ayaan-20-11/Zentro-?style=flat&color=00c2ff)](https://github.com/Ayaan-20-11/Zentro-/network/members)
 [![GitHub Issues](https://img.shields.io/github/issues/Ayaan-20-11/Zentro-?color=00c2ff)](https://github.com/Ayaan-20-11/Zentro-/issues)
+[![Good First Issues](https://img.shields.io/github/issues/Ayaan-20-11/Zentro-/good%20first%20issue?color=00c2ff&label=good%20first%20issues)](https://github.com/Ayaan-20-11/Zentro-/issues?q=is%3Aopen+label%3A%22good+first+issue%22)
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-00c2ff.svg)](CONTRIBUTING.md)
 
 [About](#about-zentro) • [Features](#features) • [Getting Started](#getting-started) • [Limitations](#current-limitations) • [Roadmap](#planned-roadmap) • [Contributing](#contributing)
@@ -225,3 +234,9 @@ This project is licensed under the **MIT License** — see the [`LICENSE`](LICEN
 - **Typography:** [Poppins](https://fonts.google.com/specimen/Poppins) via Google Fonts
 - **Product Photography:** [Unsplash](https://unsplash.com/)
 - **Community Standards:** [Contributor Covenant v2.1](https://www.contributor-covenant.org/)
+
+---
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,55:1e293b,100:00c2ff&height=110&section=footer&text=Built%20with%20%E2%9D%A4%EF%B8%8F%20by%20the%20Zentro%20Community&fontSize=18&fontColor=ffffff&fontAlignY=70&animation=fadeIn" width="100%" alt="Zentro animated footer wave" />
+</div>
